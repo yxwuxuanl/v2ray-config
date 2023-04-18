@@ -78,7 +78,7 @@ func main() {
 			continue
 		}
 
-		conf, err := base64.StdEncoding.DecodeString(string(line[8:]))
+		conf, err := base64.RawStdEncoding.DecodeString(string(line)[8:])
 		if err != nil {
 			log.Printf("decode vmess link error: %s, link=%s", err, line)
 			continue
