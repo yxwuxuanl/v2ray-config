@@ -1,3 +1,3 @@
-module v2ray-config
+module v2ray-subscribe
 
-go 1.20
+go 1.22.0

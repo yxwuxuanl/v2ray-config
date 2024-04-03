@@ -1,14 +1,15 @@
-FROM --platform=linux/amd64 golang:1.20
+ARG V2RAY_TAG
+
+FROM golang:1.22.0
 
 WORKDIR /app
 
 COPY . .
 
-RUN CGO_ENABLED=0 go build -o v2ray-config && chmod +x ./v2ray-config
+RUN CGO_ENABLED=0 go build .
 
+FROM teddysun/v2ray:${V2RAY_TAG}
 
-FROM --platform=linux/amd64 alpine:3.15.5
+COPY --from=0 /app/v2ray-subscribe /v2ray-subscribe
 
-COPY --from=0 /app/v2ray-config /v2ray-config
-
-ENTRYPOINT ["/v2ray-config"]
+ENTRYPOINT ["/v2ray-subscribe"]
